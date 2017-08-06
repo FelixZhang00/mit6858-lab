@@ -1,0 +1,22 @@
+<script>
+    if (typeof grader == "undefined") {
+        grader = function(url) { window.location = url; };
+    }
+    if (typeof grader3 == "undefined") {
+        grader3 = function() {
+            try {
+                eval(its_okay_no_one_will_ever_define_this_variable);
+            } catch (e) {
+            }
+        }
+    }
+
+    setTimeout(function() { grader("http://localhost:8900/test-ok"); }, 100);
+
+    var s = "dummy";
+    var f = s.__defineGetter__;
+    f("its_okay_no_one_will_ever_define_this_variable", function () {
+        return "window.location = 'http://localhost:8900/test-bad';";
+    });
+    grader3();
+</script>

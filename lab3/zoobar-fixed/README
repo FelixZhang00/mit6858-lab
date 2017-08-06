@@ -1,0 +1,4 @@
+To fix bugs for lab 3 exercise 7, copy any files you want to modify
+from the zoobar directory to this directory.  Please keep the original
+files in the zoobar directory unchanged, so that "make check" continues
+working for previous exercises.

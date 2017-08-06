@@ -1,0 +1,34 @@
+<script>
+    if (typeof grader == "undefined") {
+        grader = function(url) { window.location = url; };
+    }
+
+    setTimeout(function() { grader("http://localhost:8900/test-ok"); }, 100);
+
+    function countToStrings() {
+        var toStringCount = 0;
+        var key = { "toString": function () {
+            toStringCount++;
+            return "a";
+        } };
+        function bogus() {}
+        var f = bogus[key];
+        return toStringCount;
+    }
+
+    function bracketWithToString(n) {
+        var goodChecksLeft = n;
+        var key = { "toString": function () {
+            if (goodChecksLeft-- > 0)
+                return "a";
+            return "con" + "struct" + "or";
+        } };
+        function bogus() {}
+        var s = "window.location = 'http://localhost:8900/test-bad';"
+        var f = bogus[key];
+        if (f)
+            f(s)();
+    }
+
+    bracketWithToString(countToStrings() - 1);
+</script>

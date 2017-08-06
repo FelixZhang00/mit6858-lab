@@ -1,0 +1,79 @@
+<div id="a">x</div>
+
+<div id="b">x</div>
+
+<div id="c">scrolling message</div>
+
+<div id="count"></div>
+
+<script>
+    if (typeof grader == "undefined") {
+        grader = function(url) { window.location = url; };
+    }
+
+    function Counter() {
+        this.value = 0;
+    }
+    Counter.prototype.setValue = function (value) {
+        this.value = value;
+    }
+    var count = new Counter();
+
+    function flip(a, b) {
+        document.getElementById(a).textContent = "nothing here";
+        document.getElementById(b).textContent = "-- click me! --";
+        var bump = function (x) { return x+1; }
+        count.setValue(bump(count.value));
+        document.getElementById('count').textContent = 'click count: ' + count.value;
+    }
+
+    if (!document.getElementById('a') || !document.getElementById('b')) {
+        grader('http://localhost:8900/test-broken-1');
+    }
+
+    document.getElementById('a').onclick = function() { flip('a', 'b'); };
+    document.getElementById('b').onclick = function() { flip('b', 'a'); };
+    document.getElementById('a').onclick();
+    document.getElementById('a').onclick();
+    document.getElementById('b').onclick();
+
+    var scrollcount = 0;
+
+    var x = { 'target':
+              { 'ownerDocument':
+                { 'defaultView':
+                  { 'eval': function (i) { return i + 3 } }
+                }
+              }
+            };
+
+    function scroll(id) {
+        scrollcount = scrollcount + 1;
+        if (scrollcount == 5) {
+            var obj = { foo: 42, "bar": 42 };
+            if (document.getElementById('a').textContent != '-- click me! --') {
+                grader('http://localhost:8900/test-broken-2');
+            } else if (document.getElementById('b').textContent != 'nothing here') {
+                grader('http://localhost:8900/test-broken-3');
+            } else if (document.getElementById('count').textContent != 'click count: 3') {
+                grader('http://localhost:8900/test-broken-4');
+            } else if (document.getElementById('c').textContent != 'lling messagescro') {
+                grader('http://localhost:8900/test-broken-5');
+            } else if (obj.foo !== 42 || obj["foo"] !== 42 ||
+                       obj.bar !== 42 || obj["bar"] !== 42) {
+                grader('http://localhost:8900/test-broken-6');
+            } else if (x.target.ownerDocument.defaultView.eval(5) != 8) {
+                grader('http://localhost:8900/test-broken-7');
+            } else {
+                grader('http://localhost:8900/test-ok');
+            }
+        }
+
+        var s = document.getElementById(id).textContent;
+        var ns = s.substring(1) + s[0];
+        document.getElementById(id).textContent = ns;
+        setTimeout(function() { var f = scroll; f(id); }, 10);
+    }
+
+    scroll('c');
+</script>

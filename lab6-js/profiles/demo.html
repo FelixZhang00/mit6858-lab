@@ -1,0 +1,32 @@
+<div id="a">x</div>
+
+<div id="b">x</div>
+
+<div id="c">scrolling message.. </div>
+
+<div id="count"></div>
+
+<script>
+    var count = 0;
+
+    function flip(a, b) {
+        document.getElementById(a).textContent = "nothing here";
+        document.getElementById(b).textContent = "-- click me! --";
+        var bump = function (x) { return x+1; }
+        count = bump(count);
+        document.getElementById('count').textContent = 'click count: ' + count;
+    }
+
+    flip('a', 'b');
+    document.getElementById('a').onclick = function() { flip('a', 'b'); };
+    document.getElementById('b').onclick = function() { flip('b', 'a'); };
+
+    function scroll(id) {
+        var s = document.getElementById(id).textContent;
+        var ns = s.substring(1) + s[0];
+        document.getElementById(id).textContent = ns;
+        setTimeout(function() { scroll(id); }, 100);
+    }
+
+    scroll('c');
+</script>

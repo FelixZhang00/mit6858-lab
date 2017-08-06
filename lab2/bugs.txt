@@ -1,0 +1,17 @@
+#
+# [file:#lines]
+# desc
+#
+
+[zookd.c:1612]
+description goes here. for example, the 'buf' variable can be
+overwritten by the 'msg' variable because ...
+
+    <paste offending line(s) of code here>
+
+[http.c:1512]
+another description.
+
+    <paste offending line(s) of code here>
+
+# many more come here

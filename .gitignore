@@ -1,0 +1,15 @@
+/*.o
+/*.log
+/zookd
+/zookd-exstack
+/zookd-nxstack
+/zookd-withssp
+/zookfs
+/zookfs-exstack
+/zookfs-nxstack
+/zookfs-withssp
+/zookld
+/shellcode*.bin
+/zooksvc
+/run-shellcode
+/submit.key

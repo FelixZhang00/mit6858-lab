@@ -1,0 +1,46 @@
+body { 
+  background-color: #cccccc;
+  font-family: sans-serif; 
+  margin-left: 25px; 
+  margin-right: 25px; 
+  font-size: smaller;
+}
+.centerpiece {
+  margin: 0 auto;
+  width: 500px; 
+  height: 255px; 
+  border: 2px solid #333333;
+  font-size: 10pt;
+}
+.log {
+  width: 500px;
+}
+h1, h2, h1 a { text-align: center; color: #555555; }
+h1 a { text-decoration: none; }
+h1 { margin: 0em 100px 0em 100px; }
+h2 { margin: 0em 1em 1em 1em; font-size: 1em; }
+.centerpiece textarea { width: 90%; height: 100px; }
+.centerpiece td { height: 0px; } 
+.centerpiece td.main { height: 130px; } 
+#login { background-image: url(lion_sleeping.jpg); font-weight: bold; }
+#login table { margin: 18px 30px 0px 30px; }
+#main { background-image: url(lion_awake.jpg); }
+#main td { text-align: center; }
+#main table {
+  width: 180px;
+  height: 155px;
+  margin: 15px 280px 25px 30px;
+}
+.profilecontainer { 
+  height: 100px; 
+  margin: 5px; 
+  border-top: 1px solid #333333; 
+}
+.warning { color: #A00000; font-weight: bold; }
+.footer { text-align: center; }
+#header {
+  text-align: right; 
+  position: absolute;
+  right: 1em;
+  font-size: smaller;
+}

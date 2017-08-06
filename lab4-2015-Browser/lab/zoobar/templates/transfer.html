@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}Transfer{% endblock %}
+{% block content %}
+<b>Balance: </b><span id="myZoobars"></span> zoobars<br />
+<form method="POST" name="transferform" action="{{ url_for('transfer') }}">
+<p>Send <input name="zoobars" type="text" value="{{ request.form.get('zoobars', '') }}" size=5> zoobars</p>
+<p>to <input name=recipient type=text value="{{ request.form.get('recipient', '') }}" size=10></p>
+<input type="submit" name="submission" value="Send">
+</form>
+{% if warning %}
+<span class="warning">{{ warning }}</span>
+{% endif %}
+<script type="text/javascript" src="{{ url_for('zoobarjs') }}"></script>
+{% endblock %}

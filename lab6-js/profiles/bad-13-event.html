@@ -1,0 +1,23 @@
+<div id="a">
+    Click me before the grader setTimeout fires!
+</div>
+
+<script>
+    if (typeof grader == "undefined") {
+        grader = function(url) { window.location = url; };
+    }
+
+    setTimeout(function() { grader('http://localhost:8900/test-ok'); }, 100);
+    var s = "window.location = 'http://localhost:8900/test-bad';"
+
+    var domNode = document.getElementById("a");
+    if (domNode == null) {
+        domNode = document.getElementById("sandbox-a");
+    }
+
+    domNode.onclick = function (evt) {
+        var rawDomNode = evt.target;
+        var w = rawDomNode.ownerDocument.defaultView;
+        w.eval(s);
+    }
+</script>

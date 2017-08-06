@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block main %}
+<div id="login" class="centerpiece">
+<form name="loginform" method="POST">
+<table>
+<tr>
+   <td>Username:</td>
+  <td><input type="text" name="login_username" size="20"
+  autocomplete="no" value="{{ login_username }}"></td>
+</tr>
+<tr>
+   <td>Password:</td>
+  <td colspan=2><input type="password" name="login_password" size=20 autocomplete="no">
+  <input type="submit" name="submit_login" value="Log in">
+  <input type="submit" name="submit_registration" value="Register"></td>
+</tr>
+</table>
+<input type="hidden" name="nexturl" value="{{ nexturl }}">
+</form>
+</div>
+<div class="footer warning">
+{{ login_error }}
+</div>
+<script>document.loginform.login_username.focus();</script>
+{% endblock %}

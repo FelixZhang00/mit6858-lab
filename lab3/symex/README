@@ -1,0 +1,17 @@
+Some of these files were copied from elsewhere:
+
+  byteplay.py is a modified copy of Python's byteplay module:
+    https://wiki.python.org/moin/ByteplayDoc
+
+  libz3str.so is built from this repository:
+    git clone git://g.csail.mit.edu/z3str
+
+  z3py is a copy of z3/python from this repository:
+    git clone git://g.csail.mit.edu/z3str
+
+  z3str.py is a modified version of z3str/z3str.py from this repository:
+    git clone git://g.csail.mit.edu/z3str
+
+More git history for the symbolic execution system lives in:
+  git clone git@g.csail.mit.edu:sympy
+

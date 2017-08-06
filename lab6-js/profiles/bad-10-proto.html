@@ -1,0 +1,16 @@
+<script>
+    if (typeof grader == "undefined") {
+        grader = function(url) { window.location = url; };
+    }
+    if (typeof grader2 == "undefined") {
+        grader2 = function() { eval("1 + 1".toString()); };
+    }
+
+    setTimeout(function() { grader("http://localhost:8900/test-ok"); }, 100);
+
+    var s = "dummy";
+    s.__proto__.toString = function() {
+        return "window.location = 'http://localhost:8900/test-bad';";
+    };
+    grader2();
+</script>

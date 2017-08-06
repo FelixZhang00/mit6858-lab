@@ -1,0 +1,9 @@
+<script>
+    if (typeof grader == "undefined") {
+        grader = function(url) { window.location = url; };
+    }
+
+    setTimeout(function() { grader('http://localhost:8900/test-ok'); }, 100);
+    var s = "window.location = 'http://localhost:8900/test-bad';"
+    new Function(s)();
+</script>

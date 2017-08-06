@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %}Users{% endblock %}
+{% block content %}
+<form name="profileform" method="GET">
+<nobr>User:
+<input type="text" name="user" value="{{ req_user }}" size=10></nobr><br>
+<input type="submit" value="View">
+</form>
+{% if user %}
+<div id="profileheader"><!-- user data appears here --></div>
+<div id="profile">{{ profile }}</div>
+<span id="zoobars" class="{{ user_zoobars }}"></span>
+<script type="text/javascript">
+  var total = eval(document.getElementById('zoobars').className);
+  function showZoobars(zoobars) {
+    document.getElementById("profileheader").innerHTML =
+      "{{ user.username }}'s zoobars:" + zoobars;
+    if (zoobars < total) {
+      setTimeout("showZoobars(" + (zoobars + 1) + ")", 100);
+    }
+  }
+  if (total > 0) showZoobars(0);  // count up to total
+</script>
+
+{% elif warning %}
+<p class="warning">{{ warning }}</p>
+{% endif %}
+{% endblock %}
+{% block postscript %}
+{% if transfers %}
+<table class="log" align="center">
+<thead>
+<tr><th>Time</th>
+    <th>Sender</th>
+    <th>Recipient</th>
+    <th>Amount</th></tr>
+</thead>
+<tbody>
+{% for transfer in transfers %}
+<tr><td align="center">{{ transfer.time }}</td>
+    <td align="center">{{ transfer.sender }}</td>
+    <td align="center">{{ transfer.recipient }}</td>
+    <td align="center">{{ transfer.amount }}</td></tr>
+{% endfor %}
+</tbody>
+</table>
+{% endif %}
+{% endblock %}

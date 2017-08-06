@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="/zoobar/media/zoobar.css">
+        <title>
+          {% block title %}{% endblock %} - Zoobar Foundation
+        </title>
+    </head>
+    <body>
+        {% if g.user and g.user.person %}
+        {% set person = g.user.person %}
+        {% set person_zoobars = g.user.zoobars %}
+        <div id="header">
+          <div><a href="{{ url_for('logout') }}">Log out {{ person.username }}</a></div>
+        </div>
+        {% endif %}
+        {# Pick a random title for the page. This is funny for about 3 seconds. #}
+        {% set adjectives = ["Inquisitive", "Responsible", "Patriotic", 
+                             "Trustworthy", "Sustainable", "Objective", 
+                             "Disciplined", "Sensible", "Ethical", "Vigilant", 
+                             "Principled", "Awesome"] %}
+        {% set nouns = ["Thinking", "Policy", "Dialogue", "Learning", 
+                        "Discourse", "Research", "Advocacy"] %}
+        {% set adverbs = ["best", "brightest", "foremost", "leading", 
+                          "proven", "loyal", "brave", "meritorious", 
+                          "shrewd", "important", "skillful"] %}
+        {% set pluralnouns = ["thinkers", "minds", "students", "soldiers",
+                              "advocates", "representatives", "researchers"] %}
+        {% set concepts = ["21st-century", "next generation", 
+                           "new world order", "United States", 
+                           "counterinsurgency", "information superhighway"] %}
+      <h1><a href="{{ url_for('index') }}">Zoobar Foundation for {{ adjectives|random }}
+                      {{ nouns|random }}</a></h1>
+      <h2>Supporting the {{ adverbs|random }}
+          {{ pluralnouns|random }} of the {{ concepts|random }}</h2>
+      {% block main %}
+      <div id="main" class="centerpiece">
+        <table>
+          <tr><td>
+             <p>
+               {% for (name, page) in {"Home": "index", "Users": "users", "Transfer": "transfer"}.iteritems() %}
+                 {% if page == request.endpoint %}
+                   <b>{{ name }}</b>
+                 {% else %}
+                   <a href="{{ url_for(page) }}">{{ name }}</a>
+                 {% endif %}
+                 {% if name != "Transfer" %} | {% endif %}
+               {% endfor %}
+             </p>
+          </td></tr>
+          <tr><td class="main">
+            {% block content %}{% endblock %}
+          </td></tr>
+        </table>
+      </div>
+      {% block postscript %}{% endblock %}
+      {% endblock %}
+    </body>
+</html>
